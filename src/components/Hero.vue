@@ -12,7 +12,7 @@
                     {{ recipe.description }}
                 </el-text>
                 <template #footer>
-                    <el-button type="primary" @click="setDataForDialog(true, recipe.name, recipe.instructions, recipe.video_url)">
+                    <el-button type="primary" @click="setDataForDialog(true, recipe.name, recipe.instructions, recipe.video_url, recipe.description)">
                         How to Cook!!
                     </el-button>
                 </template>
@@ -24,6 +24,10 @@
             width="500"
             :before-close="handleClose"
         >
+            <p>
+                {{ description }}
+            </p>
+            <h3><u>Steps to cook!</u></h3>
             <div class="counter" v-for="instruction in instructions" :key="instruction.id"> {{ instruction.display_text }}</div>
             <template #footer>
             <div class="dialog-footer">
@@ -53,16 +57,18 @@ const instructions = ref([]);
 const nameOfTheDish = ref('');
 const videoURL = ref('');
 const dialogVisible = ref(false);
+const description = ref('');
 
 const handleClose = (done) => {
   done();
 };
 
-const setDataForDialog = (visible, name, howToPrepare, video) => {
+const setDataForDialog = (visible, name, howToPrepare, video, desc) => {
     dialogVisible.value = true;
     instructions.value = howToPrepare;
     nameOfTheDish.value = name;
     videoURL.value = video;
+    description.value = desc;
 }
 
 </script>
